@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow on push to main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Checkout the repository code
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2  # Setup Node.js environment
+      with:
+        node-version: '14'  # Specify Node.js version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test  # Run tests using the script in package.json
+
+    - name: Build application
+      run: npm run build  # Build your application (optional if you have a build step)
